@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 class Square extends React.Component {
   render() {
     return (
@@ -9,34 +9,29 @@ class Square extends React.Component {
   }
 }
 
-class Board extends React.Component {
+class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
-      xIsnext: true
+      xIsnext: true,
     };
   }
   handleClick(i) {
     const squares = this.state.squares.slice();
 
     if (squares[i] == null) {
-      
-      
-      
-      squares[i] = this.state.xIsNext ? 'X' : 'O'
+      squares[i] = this.state.xIsNext ? "X" : "O";
 
       this.setState({ squares: squares, xIsNext: !this.state.xIsNext });
     }
   }
-  
+
   restartGame() {
     this.setState({
       squares: Array(9).fill(null),
-      xIsnext: true
-      
-    }
-    )
+      xIsnext: true,
+    });
   }
 
   renderSquare(i) {
@@ -49,63 +44,42 @@ class Board extends React.Component {
   }
 
   render() {
-    
     const winner = calculateWinner(this.state.squares);
-    
-    let status
+
+    let status;
     if (winner) {
       status = "Winner: " + winner;
+    } else {
+      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
-      else {   status = "Next player: " + (this.state.xIsNext ? 'X' : 'O');}
-    
-    
-  
 
-    return (
-      <div>
-        <div className="status">{status}</div>
-        <button onClick={() => this.restartGame()}>Restart</button>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
-  }
-}
-
-class Game extends React.Component {
-  render() {
     return (
       <div className="game">
-        <h1>Tic Tac Toe</h1>
+        <div className="status">{status}</div>
         
-        <div className="game-board">
-          <Board />
+        <div className="board">
+          <div className="board-row">
+            {this.renderSquare(0)}
+            {this.renderSquare(1)}
+            {this.renderSquare(2)}
+          </div>
+          <div className="board-row">
+            {this.renderSquare(3)}
+            {this.renderSquare(4)}
+            {this.renderSquare(5)}
+          </div>
+          <div className="board-row">
+            {this.renderSquare(6)}
+            {this.renderSquare(7)}
+            {this.renderSquare(8)}
+        
+          </div>
         </div>
-        <div className="game-info">
-          <div>{/* status */}</div>
-          <ol>{/* TODO */}</ol>
-        </div>
+        <button className="restartButton"onClick={() => this.restartGame()}><span>Restart</span></button>      
       </div>
     );
   }
 }
-
-// ========================================
-
-ReactDOM.render(<Game />, document.getElementById("root"));
 
 function calculateWinner(squares) {
   const lines = [
@@ -129,16 +103,12 @@ function calculateWinner(squares) {
 class App extends React.Component {
   render() {
     return (
-    <div>
-      <h1>Tic Tac Toe</h1>
-      <Game/>
-
-      
-      
-      
+      <div>
+        <h1>Tic Tac Toe</h1>
+        <Game />
       </div>
-    ); 
+    );
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));

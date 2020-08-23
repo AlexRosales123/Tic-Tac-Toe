@@ -1,23 +1,31 @@
 body {
     font: 50px "Serif", Futura, sans-serif;
     margin: 20px;
-  }
-  
-  ol, ul {
-    padding-left: 30px;
-  }
-  
-  .board-row:after {
+    display: flex;
+    justify-content: center;
+    background: rgb(23, 1, 47);
+    color: white
+}
+
+.game {
+    
+}
+
+.board {
+    margin-bottom: 30px;
+}
+
+.board-row:after {
     clear: both;
     content: "";
     display: table;
-  }
-  
-  .status {
+}
+
+.status {
     margin-bottom: 10px;
-  }
-  
-  .square {
+}
+
+.square {
     background: rgb(87, 216, 205);
     border: 2px dashed rgb(255, 255, 255);
     float: left;
@@ -30,22 +38,40 @@ body {
     padding: 0;
     text-align: center;
     width: 100px;
-  }
-  
-  .square:focus {
+}
+
+.square:focus {
     outline: none;
+}
+.sun {
+    width: 64px;
+    height: 64px;
+    left: 55px;
+    bottom: 136px;
+    background: linear-gradient(180deg, #ffdc2a 0%, #fb2182 41.54%);
+    box-shadow: 0px 0px 36px #ffdc2a;
+    z-index: 2;
+    border-radius: 65px;
+    transition: all 1s ease-in-out;
   }
-  
-  .kbd-navigation .square:focus {
-    background: #ddd;
-  }
-  
-  .game {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .game-info {
-    margin-left: 20px;
-  }
-  
+  .restartButton {
+    width: 150px;
+    height: 60px;
+    background: #2c0055;
+    box-shadow: 0px 0px 16px #a315b6;
+    border-radius: 2px;
+    z-index: 3;
+    border: 2px solid;
+    border-image: linear-gradient(#360154, #d442d5) 30;
+  }   
+    .restartButton span {
+      text-align: center;
+      font-family: "Sacramento", cursive;
+      left: 56px;
+      font-size: 35px;
+      line-height: 70px;
+      margin: 0 auto;
+      background: -webkit-linear-gradient(#2d20a0, #fb2182);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
