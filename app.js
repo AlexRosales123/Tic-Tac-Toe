@@ -14,7 +14,7 @@ class Game extends React.Component {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
-      xIsnext: true,
+      xIsNext: true,
     };
   }
   handleClick(i) {
@@ -23,14 +23,30 @@ class Game extends React.Component {
     if (squares[i] == null) {
       squares[i] = this.state.xIsNext ? "X" : "O";
 
-      this.setState({ squares: squares, xIsNext: !this.state.xIsNext });
+      this.setState({ squares: squares, xIsNext: !this.state.xIsNext }, () => {
+ console.log(this.state)
+        //TODO: check if the computer is supposed to take its turn
+        if (!this.state.xIsNext) {
+           this.takeComputerTurn(this.state.squares);
+          console.log ("Computer Turn")
+        }
+      });
     }
+  }
+  async takeComputerTurn(squares) {
+    const computerMove = calculateComputerMove(squares);
+    console.log(computerMove);
+    squares[computerMove] = "O";
+    this.setState({
+      squares: squares,
+      xIsNext: true,
+    });
   }
 
   restartGame() {
     this.setState({
       squares: Array(9).fill(null),
-      xIsnext: true,
+      xIsNext: true,
     });
   }
 
@@ -56,7 +72,7 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="status">{status}</div>
-        
+
         <div className="board">
           <div className="board-row">
             {this.renderSquare(0)}
@@ -72,10 +88,11 @@ class Game extends React.Component {
             {this.renderSquare(6)}
             {this.renderSquare(7)}
             {this.renderSquare(8)}
-        
           </div>
         </div>
-        <button className="restartButton"onClick={() => this.restartGame()}><span>Restart</span></button>      
+        <button className="restartButton" onClick={() => this.restartGame()}>
+          <span>Restart</span>
+        </button>
       </div>
     );
   }
@@ -100,6 +117,17 @@ function calculateWinner(squares) {
   }
   return null;
 }
+function calculateComputerMove(squares) {
+  for (var i = 0;i < squares.length; i++){
+    if (squares[i] == null) {
+        return i;
+    }
+  }
+
+  // if the board is completely full dont return anything
+    return;
+}
+
 class App extends React.Component {
   render() {
     return (
